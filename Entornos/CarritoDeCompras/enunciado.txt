@@ -1,0 +1,66 @@
+Dado el siguiente código:
+
+import java.util.ArrayList;
+import java.util.List;
+public class CarritoDeCompras {
+    private List<Item> items;
+    public CarritoDeCompras() {
+        this.items = new ArrayList<>();
+    }
+    public void agregarItem(Item item) {
+        items.add(item);
+    }
+    public void removerItem(Item item) {
+        items.remove(item);
+    }
+
+    public void imprimirDetalle() {
+        System.out.println("Detalles del carrito de compras:");
+        for (Item item : items) {
+            System.out.println(item.nombre + " - $" + item.precio);
+        }
+        double total = 0;
+        for (Item item : items) {
+            total += item.precio;
+        }
+        System.out.println("Total: €" + total);
+    }
+    public static void main(String[] args) {
+        CarritoDeCompras carrito = new CarritoDeCompras();
+        Item item1 = new Item("Camiseta", 20.99);
+        Item item2 = new Item("Pantalones", 34.99);
+        carrito.agregarItem(item1);
+        carrito.agregarItem(item2);
+        carrito.imprimirDetalle();
+    }
+}
+class Item {
+    public String nombre;
+    public double precio;
+    public Item(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+}
+Realizar los siguientes pasos de refactorización:
+
+El programa principal y el carrito son la misma cosa: El carrito debería tener entidad propia y ser una clase independiente al programa principal.
+
+Separación de Responsabilidades: El cálculo del total debería ser una responsabilidad propia del carrito, actualmente forma parte de la impresión del contenido del carrito. Lo mismo ocurre con el listado de elementos.
+
+Acoplamiento: La clase CarritoDeCompras y la clase Item están fuertemente acopladas. Podrían hacerse más independientes. Una es los getters y setters del punto siguiente, otra es cómo imprimir los atributos del item en la clase Carrito.
+
+Crear Getters y Setters para los campos de Item: los atributos de la clase Item no deberían ser públicos y tener los corrrespondientes getters y setters donde en estos últimos y en el constructor no permitir precios negativos ni por encima de una cifra desorbitada dado el tipo de negocio supuesto. Generar excepciones si se da el caso.
+
+Duplicación de código: La lógica para imprimir los detalles de los elementos del carrito se repite en dos lugares.
+Manejo de excepciones: No hay manejo de excepciones en caso de que se intenten eliminar elementos que no existen en el carrito.
+
+Uso de primitivas: los textos como el símbolo de la moneda, la cabecera del listado, los límites para un precio válido deberían ser hiperparámetros definidos en constantes en la case correspondiente.
+
+Impresión del detalle de los elementos del carrito: debería ser función del ítem y del carrito, sobreescribir el método toString() del Item.
+
+Escalabilidad: Actualmente, la lista de Items es un simple ArrayList. Si queremos escalar el programa para manejar grandes cantidades de elementos, podría no ser la estructura de datos más eficiente. Pensad en cual podría ser.
+
+Agregar cantidad: Plantear cómo podemos añadir la cantidad comprada de cada ítem al carrito.
+
+Documentación: Utiliza Javadoc para documentar las clases resultantes y el archivo README.md generado con IA, revisado y modificado por vosotros puesto que siempre seréis los responsables del trabajo, asistido con IA o no.
