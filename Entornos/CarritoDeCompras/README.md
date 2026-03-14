@@ -30,7 +30,7 @@ El enunciado completo del ejercicio se encuentra en el archivo `enunciado.txt`.
 
 ## Autor
 
-- Nombre: Antonio
+- Nombre: Antonio Nicolas Ruiz
 - Curso: 1º DAM
 - Asignatura: Entornos de Desarrollo
 
